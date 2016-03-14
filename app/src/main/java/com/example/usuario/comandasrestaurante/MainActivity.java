@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SQLiteDatabase db = database.getWritableDatabase();
 
         GridLayout myLayout = (GridLayout) findViewById(R.id.gridMesas);
-        txtDatos = (TextView)findViewById(R.id.textViewDatos);
 
         Cursor c = db.rawQuery("SELECT * FROM Mesas", null);
         if(c.moveToFirst()){
