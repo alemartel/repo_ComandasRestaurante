@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+<RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,8 +13,22 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.usuario.comandasrestaurante.MainActivity"
+    tools:context=".MainActivity"
     android:id="@+id/LayoutMesas">
+
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridMesas"
+        android:columnCount="3"
+        android:useDefaultMargins="true"
+        android:paddingTop="10dp"
+        android:background="#cedee7"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/settings">
+    </GridLayout>
 
     <ImageButton
         android:id="@+id/settings"
@@ -22,20 +42,7 @@
         android:background="@drawable/abc_ic_menu_overflow_material" />
 
 
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:id="@+id/gridMesas"
-        android:columnCount="3"
-        android:useDefaultMargins="true"
-        android:paddingTop="10dp"
-        android:background="#cedee7"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/settings">
 
-    </GridLayout>
 
-=======
->>>>>>> repo_ComandasRestaurante/master
 </RelativeLayout>
+</ScrollView>

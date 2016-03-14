@@ -19,7 +19,7 @@ public class BaseDeDatos extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(sqlCreateMesas);
         if(db != null) {
-            for (int i = 1; i <= 6; i++) {
+            for (int i = 1; i <= 26; i++) {
                 db.execSQL("INSERT INTO Mesas (Nombre) " +
                         "VALUES ('Mesa" + i + "')");
             }

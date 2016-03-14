@@ -5,23 +5,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.app.Activity;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 
@@ -96,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 grid.addView(textView);
                 grid.addView(imageView);
                 GridLayout.LayoutParams glpgrid = new GridLayout.LayoutParams();
-                glpgrid.setMargins(70, 30, 0, 0); // (left, top, right, bottom);
+                glpgrid.setMargins(70, 30, 0, 30); // (left, top, right, bottom);
                 grid.setLayoutParams(glpgrid);
                 grid.setOnClickListener(this);
                 myLayout.addView(grid);
@@ -109,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        setContentView(R.layout.activity_comanda);
+        Intent nextScreen = new Intent(getApplicationContext(), Comanda.class);
+        startActivity(nextScreen);
     }
 }
