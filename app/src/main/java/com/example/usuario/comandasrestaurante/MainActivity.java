@@ -9,23 +9,66 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     GridLayout grid;
-    //ImageButton settings;
+    ImageButton settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        settings = (ImageButton) findViewById(R.id.settings);
+
+        settings.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creating the instance of PopupMenu
+                final PopupMenu popup = new PopupMenu(MainActivity.this, settings);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        //Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
+
+                        switch (item.getItemId()) {
+                            case R.id.login:
+                                Intent nextScreen = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(nextScreen);
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                        }
+
+                        return false;
+                    }
+                });
+
+                popup.show();//showing popup menu
+            }
+        });//closing the setOnClickListener method
 
 
         BaseDeDatos database = new BaseDeDatos(this, "BaseDeDatos", null, 1);
