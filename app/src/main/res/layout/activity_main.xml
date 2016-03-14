@@ -7,10 +7,32 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.usuario.comandasrestaurante.MainActivity">
+    tools:context="com.example.usuario.comandasrestaurante.MainActivity"
+    android:id="@+id/LayoutMesas">
 
-    <TextView
+    <ImageButton
+        android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_marginLeft="62dp"
+        android:text="Show Popup"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="false"
+        android:background="@drawable/abc_ic_menu_overflow_material" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/gridMesas"
+        android:columnCount="3"
+        android:useDefaultMargins="true"
+        android:paddingTop="10dp"
+        android:background="#cedee7"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/settings">
+
+    </GridLayout>
+
 </RelativeLayout>
