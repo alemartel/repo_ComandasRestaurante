@@ -7,10 +7,9 @@
     <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Entrar</string>
     <string name="action_sign_in_short">Entrar</string>
-    <string name="error_invalid_user">Usuario incorrecto</string>
     <string name="error_invalid_password">La contraseña es muy corta</string>
-    <string name="error_incorrect_password">Contraseña incorrecta</string>
     <string name="error_field_required">Campo obligatorio</string>
+    <string name="error_invalid_login">Usuario o contraseña incorrectos</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

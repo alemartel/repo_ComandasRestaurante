@@ -1,6 +1,8 @@
 package com.example.usuario.comandasrestaurante;
 
 import android.app.Activity;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,11 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
 
-public class LoginActivity extends Activity {
+
+
+public class LoginActivity extends Activity{
 
 
     private EditText userView;
     private EditText passwordView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +65,18 @@ public class LoginActivity extends Activity {
             cancel = true;
         }
 
+        BaseDeDatos database = new BaseDeDatos(this, "BaseDeDatos", null, 1);
+        if(database.registro(user, password) == false){
+            userView.setError(getString(R.string.error_invalid_login));
+            focusView = userView;
+            cancel = true;
+        }
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            //showProgress(true);
 
             Intent nextScreen = new Intent(getApplicationContext(), AdministracionActivity.class);
             startActivity(nextScreen);
@@ -75,8 +84,9 @@ public class LoginActivity extends Activity {
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
+
+
 }
 
