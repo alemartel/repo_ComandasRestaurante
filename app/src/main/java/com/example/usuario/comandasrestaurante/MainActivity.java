@@ -67,16 +67,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         GridLayout myLayout = (GridLayout) findViewById(R.id.gridMesas);
 
-        Cursor c = db.rawQuery("SELECT * FROM Mesas", null);
+        Cursor c = db.rawQuery("SELECT * FROM Comandas", null);
         if(c.moveToFirst()){
             do {
-                String nombre=c.getString(1);
+                int nombre=c.getInt(0);
 
                 ImageView imageView = new ImageView(this);
                 imageView.setImageResource(R.drawable.mesalibre);
 
                 TextView textView = new TextView(this);
-                textView.append(nombre);
+                textView.append("Mesa " + nombre);
                 GridLayout.LayoutParams glptext = new GridLayout.LayoutParams();
                 glptext.setMargins(45, 0, 0, 0); // (left, top, right, bottom);
                 textView.setLayoutParams(glptext);

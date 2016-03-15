@@ -9,19 +9,30 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class BaseDeDatos extends SQLiteOpenHelper{
 
-    String sqlCreateMesas = "CREATE TABLE Mesas (IdMesa INTEGER PRIMARY KEY AUTOINCREMENT, Nombre TEXT)";
-
+    String sqlComandas = "CREATE TABLE Comandas (IdMesa INTEGER PRIMARY KEY AUTOINCREMENT, Fecha TEXT, Hora TEXT, Precio INTEGER)";
+    String sqlLineaComand = "CREATE TABLE LineDeComanda (IdMesa INTEGER, IdProducto INTEGER, Cantidad INTEGER, Comentario TEXT, PRIMARY KEY(IdMesa, IdProducto))";
+    String sqlCategorias = "CREATE TABLE Categorias (IdCategoria INTEGER PRIMARY KEY AUTOINCREMENT, Nombre TEXT)";
+    String sqlProductos = "CREATE TABLE Productos (IdProducto INTEGER PRIMARY KEY AUTOINCREMENT, IdCategoria INTEGER, Nombre TEXT, Precio INTEGER, FOREIGN KEY(IdCategoria) REFERENCES Categorias(IdCategoria))";
+    String sqlHistorial = "CREATE TABLE Historial (IdComanda INTEGER PRIMARY KEY AUTOINCREMENT, Fecha TEXT, Hora TEXT, Precio INTEGER)";
+    String sqlAdminPanel = "CREATE TABLE AdminPanel (IdAdmin TEXT PRIMARY KEY, Contraseña TEXT, NMesas INTEGER)";
     public BaseDeDatos(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(sqlCreateMesas);
+        db.execSQL(sqlComandas);
+        db.execSQL(sqlLineaComand);
+        db.execSQL(sqlCategorias);
+        db.execSQL(sqlProductos);
+        db.execSQL(sqlHistorial);
+        db.execSQL(sqlAdminPanel);
+        int nmesas =20;
+        db.execSQL("INSERT INTO AdminPanel (IdAdmin, Contraseña, NMesas) " + "VALUES ('admin','admin',"+nmesas+")");
         if(db != null) {
-            for (int i = 1; i <= 26; i++) {
-                db.execSQL("INSERT INTO Mesas (Nombre) " +
-                        "VALUES ('Mesa" + i + "')");
+            for (int i = 1; i <= nmesas; i++) {
+                db.execSQL("INSERT INTO Comandas (Fecha, Hora, Precio) " +
+                        "VALUES ('','',0)");
             }
         }
     }
