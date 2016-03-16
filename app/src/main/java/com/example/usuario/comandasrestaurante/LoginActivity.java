@@ -66,7 +66,7 @@ public class LoginActivity extends Activity{
         }
 
         BaseDeDatos database = new BaseDeDatos(this, "BaseDeDatos", null, 1);
-        if(database.registro(user, password) == false){
+        if(!database.registro(user, password)){
             userView.setError(getString(R.string.error_invalid_login));
             focusView = userView;
             cancel = true;

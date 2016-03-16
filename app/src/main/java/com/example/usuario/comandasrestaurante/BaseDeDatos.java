@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class BaseDeDatos extends SQLiteOpenHelper{
 
-    private static SQLiteDatabase db;
     String sqlComandas = "CREATE TABLE Comandas (IdMesa INTEGER PRIMARY KEY AUTOINCREMENT, Fecha TEXT, Hora TEXT, Precio INTEGER)";
     String sqlLineaComand = "CREATE TABLE LineDeComanda (IdMesa INTEGER, IdProducto INTEGER, Cantidad INTEGER, Comentario TEXT, PRIMARY KEY(IdMesa, IdProducto))";
     String sqlCategorias = "CREATE TABLE Categorias (IdCategoria INTEGER PRIMARY KEY AUTOINCREMENT, Nombre TEXT)";
@@ -25,7 +24,6 @@ public class BaseDeDatos extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        this.db=db;
         db.execSQL(sqlComandas);
         db.execSQL(sqlLineaComand);
         db.execSQL(sqlCategorias);
