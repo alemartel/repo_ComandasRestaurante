@@ -6,8 +6,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class AdministracionActivity extends AppCompatActivity {
 
@@ -15,6 +21,11 @@ public class AdministracionActivity extends AppCompatActivity {
     ImageButton botonMenos;
     ImageButton botonMas;
     EditText nMesas;
+
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +92,57 @@ public class AdministracionActivity extends AppCompatActivity {
             }
         });
 
+
+        // get the listview
+        expListView = (ExpandableListView) findViewById(R.id.expandableListView);
+
+        // preparing list data
+        prepareListData();
+
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        listDataHeader.get(groupPosition)
+                                + " : "
+                                + listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT)
+                        .show();
+                return false;
+            }
+        });
+
+    }
+
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        // Adding child data
+        listDataHeader.add("Categorías");
+
+        // Adding child data
+        List<String> categorias = new ArrayList<String>();
+        categorias.add("Prueba1");
+        categorias.add("Prueba2");
+        categorias.add("Prueba");
+        categorias.add("Prueba4");
+        categorias.add("Prueba5");
+        categorias.add("Prueba6");
+        categorias.add("Prueba7");
+
+
+        listDataChild.put(listDataHeader.get(0), categorias); // Header, Child data
     }
 
 
