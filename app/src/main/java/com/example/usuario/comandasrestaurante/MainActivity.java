@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     GridLayout grid;
     ImageButton settings;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             case R.id.login:
                                 Intent nextScreen = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(nextScreen);
-                                break;
-                            case 2:
-                                break;
-                            case 3:
                                 break;
                         }
 

@@ -1,181 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.usuario.comandasrestaurante.AdministracionActivity">
-
-    <ImageButton
-        android:id="@+id/settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Popup"
-        android:clickable="false"
-        android:background="@drawable/abc_ic_menu_overflow_material"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:adjustViewBounds="false"
-        android:layout_marginBottom="10dp" />
-
-    <RelativeLayout
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/settings">
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.example.usuario.comandasrestaurante.AdministracionActivity">
 
-        <EditText
+        <ImageButton
+            android:id="@+id/settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:id="@+id/nMesas"
-            android:contextClickable="false"
-            android:enabled="true"
-            android:text="20"
-            android:layout_marginRight="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_gravity="center_horizontal"
-            android:maxWidth="50dp"
-            android:minWidth="30dp"
+            android:text="Show Popup"
+            android:clickable="false"
+            android:background="@drawable/abc_ic_menu_overflow_material"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/botonMenos" />
+            android:layout_alignParentEnd="true"
+            android:adjustViewBounds="false"
+            android:layout_marginBottom="10dp" />
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/botonMas"
-            android:src="@android:drawable/ic_media_ff"
-            android:layout_marginLeft="0dp"
-            android:layout_row="0"
-            android:layout_gravity="right"
-            android:layout_alignTop="@+id/nMesas"
-            android:layout_toEndOf="@+id/nMesas" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/relativeLayout"
+            android:layout_below="@+id/settings"
+            android:layout_centerHorizontal="true">
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/botonMenos"
-            android:src="@android:drawable/ic_media_rew"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/relativeLayout2"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:background="#f5f5ff"
+                android:layout_marginBottom="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Número de mesas: "
-            android:id="@+id/textView3"
-            android:textSize="15dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="11dp"
-            android:textStyle="bold" />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/nMesas"
+                    android:contextClickable="false"
+                    android:enabled="false"
+                    android:text="20"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:maxWidth="50dp"
+                    android:minWidth="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/botonMenos"
+                    android:editable="true" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="43dp"
-            android:layout_height="40dp"
-            android:text="OK"
-            android:id="@+id/button"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/botonMas" />
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/botonMas"
+                    android:src="@android:drawable/ic_media_ff"
+                    android:layout_marginLeft="0dp"
+                    android:layout_row="0"
+                    android:layout_gravity="right"
+                    android:layout_alignTop="@+id/nMesas"
+                    android:layout_toEndOf="@+id/nMesas" />
 
-        <AutoCompleteTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/autoCompleteTextView"
-            android:layout_below="@+id/nMesas"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="42dp"
-            android:layout_toStartOf="@+id/botonMenos"
-            android:hint="Categoría"
-            android:textStyle="italic"
-            android:textIsSelectable="false" />
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/botonMenos"
+                    android:src="@android:drawable/ic_media_rew"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButton"
-            android:src="@android:drawable/ic_input_add"
-            android:layout_alignBottom="@+id/autoCompleteTextView"
-            android:layout_toStartOf="@+id/botonMas"
-            android:layout_alignTop="@+id/autoCompleteTextView" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Número de mesas: "
+                    android:id="@+id/textView3"
+                    android:textSize="15dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="11dp"
+                    android:textStyle="bold" />
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButton2"
-            android:src="@android:drawable/ic_delete"
-            android:layout_alignTop="@+id/imageButton"
-            android:layout_alignStart="@+id/botonMas"
-            android:layout_marginLeft="10dp"
-            android:layout_alignBottom="@+id/imageButton" />
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="43dp"
+                    android:layout_height="40dp"
+                    android:text="OK"
+                    android:id="@+id/button"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/botonMas"
+                    android:layout_marginLeft="10dp" />
+            </RelativeLayout>
 
-        <AutoCompleteTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/autoCompleteTextView2"
-            android:textStyle="italic"
-            android:hint="Nombre del producto"
-            android:layout_below="@+id/textView2"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="3dp" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/frameCategorias"
+                android:background="#f5f5ff"
+                android:layout_below="@+id/relativeLayout2"
+                android:layout_alignParentStart="true">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nuevo producto"
-            android:id="@+id/textView2"
-            android:textStyle="bold|italic"
-            android:textSize="22dp"
-            android:layout_below="@+id/autoCompleteTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp" />
+                <EditText
+                    android:layout_width="279dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtCategoría"
+                    android:layout_gravity="left|center_vertical"
+                    android:hint="Nombre de la categoría"
+                    android:layout_marginBottom="5dp" />
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButton3"
-            android:src="@android:drawable/ic_input_add"
-            android:layout_alignTop="@+id/autoCompleteTextView2"
-            android:layout_toStartOf="@+id/imageButton4"
-            android:layout_alignBottom="@+id/autoCompleteTextView2" />
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/butEliminarCategoría"
+                    android:src="@android:drawable/ic_delete"
+                    android:layout_marginLeft="10dp"
+                    android:layout_alignTop="@+id/butAñadirCategoría"
+                    android:layout_alignStart="@+id/button"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginTop="10dp" />
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButton4"
-            android:src="@android:drawable/ic_delete"
-            android:layout_alignTop="@+id/imageButton3"
-            android:layout_toEndOf="@+id/textView2"
-            android:layout_alignBottom="@+id/imageButton3"
-            android:layout_marginLeft="10dp" />
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/butAñadirCategoría"
+                    android:src="@android:drawable/ic_input_add"
+                    android:layout_below="@+id/nMesas"
+                    android:layout_toEndOf="@+id/nMesas"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginBottom="5dp" />
 
-        <ExpandableListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/expandableListView"
-            android:layout_below="@+id/autoCompleteTextView2"
-            android:layout_alignParentStart="true"
-            android:layout_above="@+id/editText"
-            android:layout_marginTop="5dp" />
+                <Spinner
+                    android:layout_width="276dp"
+                    android:layout_height="54dp"
+                    android:id="@+id/spinnerCategorías"
+                    android:layout_gravity="left|bottom"
+                    android:spinnerMode="dialog"
+                    android:layout_marginTop="10dp" />
 
-        <EditText
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:ems="5"
-            android:id="@+id/editText"
-            android:hint="PVP"
-            android:textStyle="italic"
-            android:textAlignment="center"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Categorías (añadir y eliminar)"
+                    android:id="@+id/textViewCategorías"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/butEliminarCategoría"
+                    android:layout_gravity="center_horizontal|top" />
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/frameCategorias"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+                android:background="#f5f5ff">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Productos (añadir y eliminar)"
+                    android:id="@+id/textViewProductos"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtProducto"
+                    android:layout_below="@+id/textViewProductos"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_toStartOf="@+id/textViewProductos"
+                    android:hint="Nombre del producto"
+                    android:layout_alignEnd="@+id/textViewProductos" />
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/butAñadirProducto"
+                    android:src="@android:drawable/ic_input_add"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_below="@+id/spinnerCategorías2"
+                    android:layout_alignParentEnd="true" />
+
+                <Spinner
+                    android:layout_width="276dp"
+                    android:layout_height="54dp"
+                    android:id="@+id/spinnerCategorías2"
+                    android:layout_gravity="left|bottom"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/txtProducto"
+                    android:spinnerMode="dialog" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtPrecio"
+                    android:inputType="number|numberDecimal"
+                    android:hint="PVP €"
+                    android:layout_below="@+id/spinnerCategorías2"
+                    android:layout_alignParentStart="true" />
+
+                <Spinner
+                    android:layout_width="276dp"
+                    android:layout_height="54dp"
+                    android:id="@+id/spinnerProductos"
+                    android:layout_gravity="left|bottom"
+                    android:layout_alignParentStart="true"
+                    android:spinnerMode="dialog"
+                    android:layout_alignParentBottom="true" />
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/butEliminarProducto"
+                    android:src="@android:drawable/ic_delete"
+                    android:layout_marginLeft="0dp"
+                    android:layout_gravity="right|bottom"
+                    android:layout_below="@+id/txtPrecio"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
-
-</RelativeLayout>
+</ScrollView>

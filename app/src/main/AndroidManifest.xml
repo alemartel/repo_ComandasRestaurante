@@ -19,7 +19,8 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".AdministracionActivity"></activity>
+        <activity android:name=".AdministracionActivity" />
+        <activity android:name=".cambiar_adminpass"></activity>
     </application>
 
 </manifest>

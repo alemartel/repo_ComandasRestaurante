@@ -27,7 +27,8 @@
             android:background="#cedee7"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/settings">
+            android:layout_below="@+id/settings"
+            android:layout_marginTop="10dp">
         </GridLayout>
 
         <ImageButton
@@ -40,8 +41,6 @@
             android:layout_alignParentEnd="true"
             android:clickable="false"
             android:background="@drawable/abc_ic_menu_overflow_material" />
-
-
 
 
     </RelativeLayout>

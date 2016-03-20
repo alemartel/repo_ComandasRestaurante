@@ -1,14 +1,22 @@
 package com.example.usuario.comandasrestaurante;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,13 +25,11 @@ import java.util.List;
 
 public class AdministracionActivity extends AppCompatActivity {
 
-    ImageButton settings;
-    ImageButton botonMenos;
-    ImageButton botonMas;
-    EditText nMesas;
 
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
+    ImageButton settings, botonMenos, botonMas, butAñadirCategoría, butEliminarCategoría, butAñadirProducto, butEliminarProducto;
+    EditText nMesas, txtCategoría, txtProducto, txtPrecio;
+    Spinner spinnerCategoría, spinnerCategoría2, spinnerProducto;
+
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 
@@ -32,6 +38,8 @@ public class AdministracionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_administracion);
 
+        BaseDeDatos database = new BaseDeDatos(this, "BaseDeDatos", null, 1);
+        final SQLiteDatabase db = database.getWritableDatabase();
 
         settings = (ImageButton) findViewById(R.id.settings);
 
@@ -49,8 +57,8 @@ public class AdministracionActivity extends AppCompatActivity {
 
                         switch (item.getItemId()) {
                             case R.id.cambiaContra:
-//                                Intent cambioPass = new Intent(getApplicationContext(), Contraseña.class);
-//                                startActivity(cambioPass);
+                                Intent nextScreen = new Intent(getApplicationContext(), cambiar_adminpass.class);
+                                startActivity(nextScreen);
                                 break;
                             case R.id.historial:
 //                                Intent verHisto = new Intent(getApplicationContext(), Historial.class);
@@ -92,57 +100,111 @@ public class AdministracionActivity extends AppCompatActivity {
             }
         });
 
+        butAñadirCategoría = (ImageButton) findViewById(R.id.butAñadirCategoría);
+        txtCategoría = (EditText) findViewById(R.id.txtCategoría);
+        butEliminarCategoría = (ImageButton) findViewById(R.id.butEliminarCategoría);
+        spinnerCategoría = (Spinner) findViewById(R.id.spinnerCategorías);
 
-        // get the listview
-        expListView = (ExpandableListView) findViewById(R.id.expandableListView);
-
-        // preparing list data
-        prepareListData();
-
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
-
-        // Listview on child click listener
-        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
+        butAñadirCategoría.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
-                return false;
+            public void onClick(View view) {
+                db.execSQL("INSERT INTO Categorias (Nombre) " + "VALUES ('"+txtCategoría.getText()+"')");
+                getCategorias();
+                Toast.makeText(getApplicationContext(), "Categoría '"+txtCategoría.getText()+"' añadida" , Toast.LENGTH_LONG).show();
+                txtCategoría.setText("");
             }
         });
 
+        butEliminarCategoría.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String textspinnerCategoría = spinnerCategoría.getSelectedItem().toString();
+                String[] partstextspinnerCategoría = textspinnerCategoría.split("-");
+                db.execSQL("DELETE FROM Categorias WHERE IdCategoria = "+partstextspinnerCategoría[0]);
+                getCategorias();
+                Toast.makeText(getApplicationContext(), "Categoría '"+partstextspinnerCategoría[1]+"' eliminada" , Toast.LENGTH_LONG).show();
+            }
+        });
+
+        butAñadirProducto = (ImageButton) findViewById(R.id.butAñadirProducto);
+        butEliminarProducto = (ImageButton) findViewById(R.id.butEliminarProducto);
+        txtProducto = (EditText) findViewById(R.id.txtProducto);
+        spinnerCategoría2 = (Spinner) findViewById(R.id.spinnerCategorías2);
+        txtPrecio = (EditText) findViewById(R.id.txtPrecio);
+        spinnerProducto = (Spinner) findViewById(R.id.spinnerProductos);
+
+        butAñadirProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String textspinnerCategoría2 = spinnerCategoría2.getSelectedItem().toString();
+                String[] partstextspinnerCategoría2 = textspinnerCategoría2.split("-");
+                db.execSQL("INSERT INTO Productos (IdCategoria, Nombre, Precio) " + "VALUES ("+partstextspinnerCategoría2[0]+",'"+txtProducto.getText()+"',"+txtPrecio.getText()+")");
+                getProductos();
+                Toast.makeText(getApplicationContext(), "Producto '"+txtProducto.getText()+"' añadido" , Toast.LENGTH_LONG).show();
+                txtProducto.setText("");
+                txtPrecio.setText("");
+            }
+        });
+
+        butEliminarProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String textspinnerProducto = spinnerProducto.getSelectedItem().toString();
+                String[] partstextspinnerProducto = textspinnerProducto.split("-");
+                db.execSQL("DELETE FROM Productos WHERE IdProducto = "+partstextspinnerProducto[0]);
+                getProductos();
+                Toast.makeText(getApplicationContext(), "Producto '"+partstextspinnerProducto[2]+"' eliminado" , Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        getCategorias();
+        getProductos();
     }
 
-    private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+    private void getCategorias() {
+        List<String> categorias =  new ArrayList<String>();
+        // Adding data
+        BaseDeDatos database = new BaseDeDatos(this, "BaseDeDatos", null, 1);
+        final SQLiteDatabase db = database.getWritableDatabase();
+        categorias.add("Categorías");
+        Cursor c = db.rawQuery("SELECT * FROM Categorias", null);
+        if(c.moveToFirst()){
+            do {
+                categorias.add(c.getString(0)+"-"+c.getString(1));
+            }while(c.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, categorias);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner sItems = (Spinner) findViewById(R.id.spinnerCategorías);
+        Spinner sItems2 = (Spinner) findViewById(R.id.spinnerCategorías2);
+        sItems.setAdapter(adapter);
+        sItems2.setAdapter(adapter);
+    }
 
-        // Adding child data
-        listDataHeader.add("Categorías");
-
-        // Adding child data
-        List<String> categorias = new ArrayList<String>();
-        categorias.add("Prueba1");
-        categorias.add("Prueba2");
-        categorias.add("Prueba");
-        categorias.add("Prueba4");
-        categorias.add("Prueba5");
-        categorias.add("Prueba6");
-        categorias.add("Prueba7");
-
-
-        listDataChild.put(listDataHeader.get(0), categorias); // Header, Child data
+    private void getProductos() {
+        List<String> productos =  new ArrayList<String>();
+        // Adding data
+        BaseDeDatos database = new BaseDeDatos(this, "BaseDeDatos", null, 1);
+        final SQLiteDatabase db = database.getWritableDatabase();
+        productos.add("Productos");
+        Cursor c = db.rawQuery("SELECT * FROM Productos", null);
+        if(c.moveToFirst()){
+            do {
+                Cursor c2 = db.rawQuery("SELECT * FROM Categorias WHERE IdCategoria="+c.getString(1), null);
+                if(c2.moveToFirst()){
+                    do {
+                        productos.add(c.getString(0)+"-"+c2.getString(1)+"-"+c.getString(2));
+                    }while(c2.moveToNext());
+                }
+            }while(c.moveToNext());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, productos);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner sItems = (Spinner) findViewById(R.id.spinnerProductos);
+        sItems.setAdapter(adapter);
     }
 
 
