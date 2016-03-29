@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
@@ -27,6 +28,7 @@ public class AdministracionActivity extends AppCompatActivity {
 
 
     ImageButton settings, botonMenos, botonMas, butAñadirCategoría, butEliminarCategoría, butAñadirProducto, butEliminarProducto;
+    Button cambiaNumMesas;
     EditText nMesas, txtCategoría, txtProducto, txtPrecio;
     Spinner spinnerCategoría, spinnerCategoría2, spinnerProducto;
 
@@ -81,6 +83,7 @@ public class AdministracionActivity extends AppCompatActivity {
         botonMenos = (ImageButton) findViewById(R.id.botonMenos);
         botonMas = (ImageButton) findViewById(R.id.botonMas);
         nMesas = (EditText) findViewById(R.id.nMesas);
+        cambiaNumMesas = (Button) findViewById(R.id.buttonOk);
 
         botonMenos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +100,21 @@ public class AdministracionActivity extends AppCompatActivity {
                 int mas = Integer.parseInt(nMesas.getText().toString());
                 mas = mas+1;
                 nMesas.setText(String.valueOf(mas));
+            }
+        });
+
+        cambiaNumMesas.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                int numMesas = Integer.parseInt(nMesas.getText().toString());
+                db.execSQL("UPDATE AdminPanel SET NMesas='" + numMesas + "' WHERE IdAdmin='admin'");
+                db.execSQL("DROP TABLE Comandas");
+                db.execSQL("CREATE TABLE Comandas (IdMesa INTEGER PRIMARY KEY AUTOINCREMENT, Fecha TEXT, Hora TEXT, Precio INTEGER)");
+                for (int i = 0; i < numMesas; i++) {
+                    db.execSQL("INSERT INTO Comandas (Fecha, Hora, Precio) " +
+                            "VALUES ('','',0)");
+                }
+                Toast.makeText(getApplicationContext(), "Numero de mesas modificado" , Toast.LENGTH_LONG).show();
             }
         });
 

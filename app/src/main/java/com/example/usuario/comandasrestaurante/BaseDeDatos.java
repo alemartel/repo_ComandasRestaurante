@@ -34,7 +34,7 @@ public class BaseDeDatos extends SQLiteOpenHelper{
         int nmesas =20;
         db.execSQL("INSERT INTO AdminPanel (IdAdmin, Contraseña, NMesas) " + "VALUES ('admin','admin',"+nmesas+")");
         if(db != null) {
-            for (int i = 1; i <= nmesas; i++) {
+            for (int i = 0; i < nmesas; i++) {
                 db.execSQL("INSERT INTO Comandas (Fecha, Hora, Precio) " +
                         "VALUES ('','',0)");
             }
