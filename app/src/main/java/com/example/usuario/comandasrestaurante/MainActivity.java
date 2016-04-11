@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         GridLayout myLayout = (GridLayout) findViewById(R.id.gridMesas);
 
-        Cursor c = db.rawQuery("SELECT * FROM Comandas", null);
+        Cursor c = db.rawQuery("SELECT * FROM Mesas", null);
         if(c.moveToFirst()){
             do {
                 int nombre=c.getInt(0);

@@ -37,7 +37,7 @@ public class cambiar_adminpass extends AppCompatActivity {
                 }
                 if(txtPassActual.getText().toString().equals(ContraseñaActual)){
                     if(txtPassNueva.getText().toString().equals(txtPassNuevaRepite.getText().toString())){
-                        db.execSQL("UPDATE AdminPanel SET Contraseña = '"+txtPassNueva.getText().toString()+"' WHERE IdAdmin='admin'");
+                        db.execSQL("UPDATE AdminPanel SET Contraseña = '"+txtPassNueva.getText().toString()+"' WHERE idAdmin='admin'");
                         Toast.makeText(getApplicationContext(), "Contraseña cambiada correctamente" , Toast.LENGTH_LONG).show();
                     }else{
                         Toast.makeText(getApplicationContext(), "Error: Debe repetir la contraseña nueva correctamente" , Toast.LENGTH_LONG).show();

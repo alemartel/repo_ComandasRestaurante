@@ -107,12 +107,12 @@ public class AdministracionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int numMesas = Integer.parseInt(nMesas.getText().toString());
-                db.execSQL("UPDATE AdminPanel SET NMesas='" + numMesas + "' WHERE IdAdmin='admin'");
-                db.execSQL("DROP TABLE Comandas");
-                db.execSQL("CREATE TABLE Comandas (IdMesa INTEGER PRIMARY KEY AUTOINCREMENT, Fecha TEXT, Hora TEXT, Precio INTEGER)");
+                db.execSQL("UPDATE AdminPanel SET nMesas='" + numMesas + "' WHERE idAdmin='admin'");
+                db.execSQL("DROP TABLE Mesas");
+                db.execSQL("CREATE TABLE Mesas (idMesa INTEGER PRIMARY KEY AUTOINCREMENT, nombreMesa TEXT)");
                 for (int i = 0; i < numMesas; i++) {
-                    db.execSQL("INSERT INTO Comandas (Fecha, Hora, Precio) " +
-                            "VALUES ('','',0)");
+                    db.execSQL("INSERT INTO Mesas (nombreMesa) " +
+                            "VALUES ('Mesa " + i+1 + "')");
                 }
                 Toast.makeText(getApplicationContext(), "Numero de mesas modificado" , Toast.LENGTH_LONG).show();
             }
@@ -126,7 +126,7 @@ public class AdministracionActivity extends AppCompatActivity {
         butAñadirCategoría.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.execSQL("INSERT INTO Categorias (Nombre) " + "VALUES ('"+txtCategoría.getText()+"')");
+                db.execSQL("INSERT INTO Categorias (nombre) " + "VALUES ('"+txtCategoría.getText()+"')");
                 getCategorias();
                 Toast.makeText(getApplicationContext(), "Categoría '"+txtCategoría.getText()+"' añadida" , Toast.LENGTH_LONG).show();
                 txtCategoría.setText("");
@@ -138,7 +138,7 @@ public class AdministracionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String textspinnerCategoría = spinnerCategoría.getSelectedItem().toString();
                 String[] partstextspinnerCategoría = textspinnerCategoría.split("-");
-                db.execSQL("DELETE FROM Categorias WHERE IdCategoria = "+partstextspinnerCategoría[0]);
+                db.execSQL("DELETE FROM Categorias WHERE idCategoria = "+partstextspinnerCategoría[0]);
                 getCategorias();
                 Toast.makeText(getApplicationContext(), "Categoría '"+partstextspinnerCategoría[1]+"' eliminada" , Toast.LENGTH_LONG).show();
             }
@@ -156,7 +156,7 @@ public class AdministracionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String textspinnerCategoría2 = spinnerCategoría2.getSelectedItem().toString();
                 String[] partstextspinnerCategoría2 = textspinnerCategoría2.split("-");
-                db.execSQL("INSERT INTO Productos (IdCategoria, Nombre, Precio) " + "VALUES ("+partstextspinnerCategoría2[0]+",'"+txtProducto.getText()+"',"+txtPrecio.getText()+")");
+                db.execSQL("INSERT INTO Productos (idCategoria, nombre, precio) " + "VALUES ("+partstextspinnerCategoría2[0]+",'"+txtProducto.getText()+"',"+txtPrecio.getText()+")");
                 getProductos();
                 Toast.makeText(getApplicationContext(), "Producto '"+txtProducto.getText()+"' añadido" , Toast.LENGTH_LONG).show();
                 txtProducto.setText("");
@@ -169,7 +169,7 @@ public class AdministracionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String textspinnerProducto = spinnerProducto.getSelectedItem().toString();
                 String[] partstextspinnerProducto = textspinnerProducto.split("-");
-                db.execSQL("DELETE FROM Productos WHERE IdProducto = "+partstextspinnerProducto[0]);
+                db.execSQL("DELETE FROM Productos WHERE idProducto = "+partstextspinnerProducto[0]);
                 getProductos();
                 Toast.makeText(getApplicationContext(), "Producto '"+partstextspinnerProducto[2]+"' eliminado" , Toast.LENGTH_LONG).show();
             }
@@ -210,7 +210,7 @@ public class AdministracionActivity extends AppCompatActivity {
         Cursor c = db.rawQuery("SELECT * FROM Productos", null);
         if(c.moveToFirst()){
             do {
-                Cursor c2 = db.rawQuery("SELECT * FROM Categorias WHERE IdCategoria="+c.getString(1), null);
+                Cursor c2 = db.rawQuery("SELECT * FROM Categorias WHERE idCategoria="+c.getString(1), null);
                 if(c2.moveToFirst()){
                     do {
                         productos.add(c.getString(0)+"-"+c2.getString(1)+"-"+c.getString(2));
