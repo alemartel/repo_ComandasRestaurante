@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -94,7 +96,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent nextScreen = new Intent(getApplicationContext(), Comanda.class);
-        startActivity(nextScreen);
+        Intent nextScreen = new Intent(this, Comanda.class);
+        ViewGroup row = (ViewGroup) v;
+        for (int itemPos = 0; itemPos < row.getChildCount(); itemPos++) {
+            View view = row.getChildAt(itemPos);
+            if (view instanceof TextView) {
+                TextView view2 = (TextView) view;
+                nextScreen.putExtra("Mesa", view2.getText().toString());
+                startActivity(nextScreen);
+            }
+        }
+
     }
 }
