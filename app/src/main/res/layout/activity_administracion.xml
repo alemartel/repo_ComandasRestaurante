@@ -55,8 +55,7 @@
                     android:maxWidth="50dp"
                     android:minWidth="30dp"
                     android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/botonMenos"
-                    android:editable="true" />
+                    android:layout_toEndOf="@+id/botonMenos"/>
 
                 <ImageButton
                     android:layout_width="40dp"

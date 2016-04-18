@@ -7,16 +7,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Comanda extends AppCompatActivity implements View.OnClickListener {
+import java.util.prefs.Preferences;
+
+public class Comanda extends AppCompatActivity {
 
     Button butAbrirCarta;
     TextView text, textLineas;
     String mesa;
     String idMesa;
-    int idComanda=0;
+    int idComanda = 0;
+    float pagar = 0;
+
+    Button butPagarComanda;
+    EditText precioComanda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +36,16 @@ public class Comanda extends AppCompatActivity implements View.OnClickListener {
 
 
         butAbrirCarta = (Button) findViewById(R.id.butAbrirCarta);
-        butAbrirCarta.setOnClickListener(this);
+        butAbrirCarta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent nextScreen = new Intent(getApplicationContext(), CartaActivity.class);
+                nextScreen.putExtra("Mesa", mesa);
+                startActivity(nextScreen);
+            }
+        });
 
+        precioComanda = (EditText) findViewById(R.id.precioComanda);
         textLineas = (TextView) findViewById(R.id.lineasComandas);
         BaseDeDatos database = new BaseDeDatos(this, "BaseDeDatos", null, 1);
         final SQLiteDatabase db = database.getWritableDatabase();
@@ -49,17 +64,23 @@ public class Comanda extends AppCompatActivity implements View.OnClickListener {
                 if(c1.moveToFirst()) {
                     do {
                         textLineas.append(c1.getString(2)+"\n");
+                        pagar = pagar + c1.getFloat(4);
+                        precioComanda.setText(String.valueOf(pagar));
                     } while (c1.moveToNext());
                 }
             }while(c.moveToNext());
         }
-    }
 
-    @Override
-    public void onClick(View v) {
-        Intent nextScreen = new Intent(this, CartaActivity.class);
-        nextScreen.putExtra("Mesa", mesa);
-        startActivity(nextScreen);
+        butPagarComanda = (Button) findViewById(R.id.butPagarComanda);
+        butPagarComanda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                float time = System.currentTimeMillis();
+                db.execSQL("UPDATE Comandas SET horaCierre='" + time + "', precio='" + pagar + "'");
+                Toast.makeText(getApplicationContext(), "El cliente debe pagar: " + pagar + " euros" , Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
 }

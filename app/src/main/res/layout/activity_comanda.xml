@@ -33,4 +33,28 @@
         android:layout_below="@+id/lineasComandas"
         android:layout_alignParentStart="true" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pagar comanda"
+        android:id="@+id/butPagarComanda"
+        android:layout_alignTop="@+id/precioComanda"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:inputType="number"
+        android:ems="5"
+        android:contextClickable="false"
+        android:enabled="false"
+        android:id="@+id/precioComanda"
+        android:text="0,0"
+        android:textSize="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentBottom="true"
+        android:textStyle="bold" />
+
 </RelativeLayout>
