@@ -25,6 +25,8 @@ public class Comanda extends AppCompatActivity {
     Button butPagarComanda;
     EditText precioComanda;
 
+    Button butAñadirComentario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +82,8 @@ public class Comanda extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "El cliente debe pagar: " + pagar + " euros" , Toast.LENGTH_LONG).show();
             }
         });
+
+
 
     }
 

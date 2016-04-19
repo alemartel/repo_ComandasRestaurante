@@ -43,7 +43,7 @@
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:layout_width="50dp"
+        android:layout_width="60dp"
         android:layout_height="50dp"
         android:inputType="number"
         android:ems="5"
@@ -56,5 +56,14 @@
         android:layout_marginRight="5dp"
         android:layout_alignParentBottom="true"
         android:textStyle="bold" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_below="@+id/butAbrirCarta"
+        android:layout_alignStart="@+id/precioComanda"
+        android:layout_marginTop="67dp"
+        android:src="@android:drawable/ic_menu_edit" />
 
 </RelativeLayout>
