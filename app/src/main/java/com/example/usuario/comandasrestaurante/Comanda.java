@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +18,8 @@ import java.util.prefs.Preferences;
 public class Comanda extends AppCompatActivity {
 
     Button butAbrirCarta;
-    TextView text, textLineas;
+    TextView text;
+    GridLayout gridLineas;
     String mesa;
     String idMesa;
     int idComanda = 0;
@@ -44,11 +47,12 @@ public class Comanda extends AppCompatActivity {
                 Intent nextScreen = new Intent(getApplicationContext(), CartaActivity.class);
                 nextScreen.putExtra("Mesa", mesa);
                 startActivity(nextScreen);
+                finish();
             }
         });
 
         precioComanda = (EditText) findViewById(R.id.precioComanda);
-        textLineas = (TextView) findViewById(R.id.lineasComandas);
+        gridLineas = (GridLayout) findViewById(R.id.GridProductos);
         BaseDeDatos database = new BaseDeDatos(this, "BaseDeDatos", null, 1);
         final SQLiteDatabase db = database.getWritableDatabase();
         String[] ArrayIdmesa = mesa.split(" ");
@@ -59,13 +63,25 @@ public class Comanda extends AppCompatActivity {
                 idComanda= c.getInt(0);
             }while(c.moveToNext());
         }
+
         c= db.rawQuery("SELECT * FROM LineaComanda WHERE idComanda="+idComanda, null);
         if(c.moveToFirst()){
             do{
                 Cursor c1= db.rawQuery("SELECT * FROM Productos WHERE idProducto="+c.getInt(2),null);
                 if(c1.moveToFirst()) {
                     do {
-                        textLineas.append(c1.getString(2)+"\n");
+                        TextView textProducto= new TextView(this);
+                        TextView textPrecio= new TextView(this);
+                        textProducto.append(c1.getString(2));
+                        textPrecio.append(c1.getString(4)+"€");
+                        ImageButton commentBut = new ImageButton(this);
+                        commentBut.setImageDrawable(getResources().getDrawable(getResources().getIdentifier("@android:drawable/ic_menu_edit", null, getPackageName())));
+                        ImageButton deleteBut = new ImageButton(this);
+                        deleteBut.setImageDrawable(getResources().getDrawable(getResources().getIdentifier("@android:drawable/ic_delete", null, getPackageName())));
+                        gridLineas.addView(textProducto);
+                        gridLineas.addView(textPrecio);
+                        gridLineas.addView(commentBut);
+                        gridLineas.addView(deleteBut);
                         pagar = pagar + c1.getFloat(4);
                         precioComanda.setText(String.valueOf(pagar));
                     } while (c1.moveToNext());

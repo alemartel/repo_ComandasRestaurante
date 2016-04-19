@@ -135,4 +135,12 @@ public class CartaActivity extends AppCompatActivity implements View.OnClickList
             db.close();
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent nextScreen = new Intent(this, Comanda.class);
+        nextScreen.putExtra("Mesa", mesa);
+        startActivity(nextScreen);
+        finish();
+    }
 }
