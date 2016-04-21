@@ -15,23 +15,37 @@
         android:text="Comanda"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="37dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lineasComandas"
-        android:layout_below="@+id/textView"
         android:layout_alignParentStart="true" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Añadir producto"
         android:id="@+id/butAbrirCarta"
-        android:layout_below="@+id/lineasComandas"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/textView"
         android:layout_alignParentStart="true" />
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/scrollView"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/butAbrirCarta"
+        android:layout_alignParentStart="true">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/butAbrirCarta"
+            android:columnCount="4"
+            android:id="@+id/GridProductos">
+
+        </GridLayout>
+    </ScrollView>
+
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -39,7 +53,7 @@
         android:layout_height="wrap_content"
         android:text="Pagar comanda"
         android:id="@+id/butPagarComanda"
-        android:layout_alignTop="@+id/precioComanda"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -54,16 +68,8 @@
         android:textSize="25dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
-        android:layout_alignParentBottom="true"
-        android:textStyle="bold" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
-        android:layout_below="@+id/butAbrirCarta"
-        android:layout_alignStart="@+id/precioComanda"
-        android:layout_marginTop="67dp"
-        android:src="@android:drawable/ic_menu_edit" />
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/butPagarComanda"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
