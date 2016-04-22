@@ -127,10 +127,10 @@ public class CartaActivity extends AppCompatActivity implements View.OnClickList
                     }while(c.moveToNext());
                 }
                 db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto,comentario) VALUES ("+idComanda+","+arrayproduct[0]+",'')");
-                Toast.makeText(getApplicationContext(), "Producto añadido" , Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Producto añadido" , Toast.LENGTH_SHORT).show();
             }else{
                 db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto,comentario) VALUES ("+idComanda+","+arrayproduct[0]+",'')");
-                Toast.makeText(getApplicationContext(), "Producto añadido" , Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Producto añadido" , Toast.LENGTH_SHORT).show();
             }
             db.close();
         }

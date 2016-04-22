@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:id="@+id/scrollView"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/butAbrirCarta"
         android:layout_alignParentStart="true">
 
@@ -53,11 +53,12 @@
         android:layout_height="wrap_content"
         android:text="Pagar comanda"
         android:id="@+id/butPagarComanda"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/precioComanda"
+        android:layout_toEndOf="@+id/precioComanda"
+        android:layout_marginTop="10dp" />
 
     <EditText
-        android:layout_width="60dp"
+        android:layout_width="85dp"
         android:layout_height="50dp"
         android:inputType="number"
         android:ems="5"
@@ -69,7 +70,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
         android:textStyle="bold"
-        android:layout_alignTop="@+id/butPagarComanda"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/scrollView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>

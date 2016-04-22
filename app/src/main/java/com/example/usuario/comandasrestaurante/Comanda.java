@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -34,6 +35,9 @@ public class Comanda extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comanda);
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
 
         mesa=getIntent().getExtras().getString("Mesa");
         text = (TextView) findViewById(R.id.textView);
@@ -78,6 +82,15 @@ public class Comanda extends AppCompatActivity {
                         commentBut.setImageDrawable(getResources().getDrawable(getResources().getIdentifier("@android:drawable/ic_menu_edit", null, getPackageName())));
                         ImageButton deleteBut = new ImageButton(this);
                         deleteBut.setImageDrawable(getResources().getDrawable(getResources().getIdentifier("@android:drawable/ic_delete", null, getPackageName())));
+                        GridLayout.LayoutParams glp = new GridLayout.LayoutParams();
+                        GridLayout.LayoutParams glpr = new GridLayout.LayoutParams();
+                        GridLayout.LayoutParams glc = new GridLayout.LayoutParams();
+                        glp.setMargins(30, 0, 30, 0); // (left, top, right, bottom);
+                        glpr.setMargins(50, 0, 50, 0);
+                        glc.setMargins(30, 0, 5, 0);
+                        textProducto.setLayoutParams(glp);
+                        textPrecio.setLayoutParams(glpr);
+                        commentBut.setLayoutParams(glc);
                         gridLineas.addView(textProducto);
                         gridLineas.addView(textPrecio);
                         gridLineas.addView(commentBut);
@@ -94,13 +107,18 @@ public class Comanda extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 float time = System.currentTimeMillis();
-                db.execSQL("UPDATE Comandas SET horaCierre='" + time + "', precio='" + pagar + "'");
-                Toast.makeText(getApplicationContext(), "El cliente debe pagar: " + pagar + " euros" , Toast.LENGTH_LONG).show();
+                db.execSQL("UPDATE Comandas SET horaCierre='" + time + "', precio='" + pagar + "' WHERE idMesa="+idMesa+" AND horaCierre=0");
+                Toast.makeText(getApplicationContext(), "El cliente debe pagar: "+pagar+" euros", Toast.LENGTH_LONG).show();
+                onBackPressed();
             }
         });
 
+    }
 
-
+    public void onBackPressed(){
+        Intent nextScreen = new Intent(this, MainActivity.class);
+        startActivity(nextScreen);
+        finish();
     }
 
 }

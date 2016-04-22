@@ -67,9 +67,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(c.moveToFirst()){
             do {
                 int nombre=c.getInt(0);
-
+                int idComanda=0;
                 ImageView imageView = new ImageView(this);
-                imageView.setImageResource(R.drawable.mesalibre);
+                Cursor c2= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre=0 AND IdMesa="+nombre,null);
+                if(c2.moveToFirst()){
+                    do {
+                        idComanda= c2.getInt(0);
+                    }while(c2.moveToNext());
+                }
+                if(idComanda==0){
+                    imageView.setImageResource(R.drawable.mesalibre);
+                }else{
+                    imageView.setImageResource(R.drawable.mesaocupada);
+                }
 
                 TextView textView = new TextView(this);
                 textView.append("Mesa " + nombre);
@@ -104,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TextView view2 = (TextView) view;
                 nextScreen.putExtra("Mesa", view2.getText().toString());
                 startActivity(nextScreen);
+                finish();
             }
         }
 
