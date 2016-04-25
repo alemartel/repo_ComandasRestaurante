@@ -40,39 +40,39 @@ public class CartaActivity extends AppCompatActivity implements View.OnClickList
             do {
                 Button butCategoría = new Button(this);
                 butCategoría.setText(c.getString(1));
-                butCategoría.setOnClickListener(this);
-                glayout.addView(butCategoría);
-                ViewGroup.LayoutParams VGlayoutParams= new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                GridLayout.LayoutParams GlayoutParams = new GridLayout.LayoutParams(VGlayoutParams);
-                butCategoría.setLayoutParams(GlayoutParams);
+                    butCategoría.setOnClickListener(this);
+                    glayout.addView(butCategoría);
+                    ViewGroup.LayoutParams VGlayoutParams= new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    GridLayout.LayoutParams GlayoutParams = new GridLayout.LayoutParams(VGlayoutParams);
+                    butCategoría.setLayoutParams(GlayoutParams);
 
-                Cursor c2 = db.rawQuery("SELECT * FROM Productos WHERE idCategoria="+c.getString(0), null);
+                    Cursor c2 = db.rawQuery("SELECT * FROM Productos WHERE idCategoria="+c.getString(0), null);
 
-                GridLayout gridProductos = new GridLayout(this);
-                gridProductos.setColumnCount(3);
-                glayout.addView(gridProductos);
-                ViewGroup.LayoutParams VGlayoutParams2= new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                GridLayout.LayoutParams GlayoutParams2 = new GridLayout.LayoutParams(VGlayoutParams2);
-                gridProductos.setLayoutParams(GlayoutParams2);
-                gridProductos.setVisibility(View.GONE);
+                    GridLayout gridProductos = new GridLayout(this);
+                    gridProductos.setColumnCount(3);
+                    glayout.addView(gridProductos);
+                    ViewGroup.LayoutParams VGlayoutParams2= new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    GridLayout.LayoutParams GlayoutParams2 = new GridLayout.LayoutParams(VGlayoutParams2);
+                    gridProductos.setLayoutParams(GlayoutParams2);
+                    gridProductos.setVisibility(View.GONE);
 
-                int fila = 0;
-                if(c2.moveToFirst()){
-                    do {
-                        TextView textView = new TextView(this);
-                        textView.append(c2.getInt(0)+"-"+c2.getString(2));
+                    int fila = 0;
+                    if(c2.moveToFirst()){
+                        do {
+                            TextView textView = new TextView(this);
+                            textView.append(c2.getInt(0)+"-"+c2.getString(2));
 
-                        ImageButton imgBut = new ImageButton(this);
-                        imgBut.setImageDrawable(getResources().getDrawable(getResources().getIdentifier("@android:drawable/ic_input_add", null, getPackageName())));
-                        imgBut.setTag(new Integer(fila));
-                        imgBut.setOnClickListener(this);
+                            ImageButton imgBut = new ImageButton(this);
+                            imgBut.setImageDrawable(getResources().getDrawable(getResources().getIdentifier("@android:drawable/ic_input_add", null, getPackageName())));
+                            imgBut.setTag(new Integer(fila));
+                            imgBut.setOnClickListener(this);
 
-                        gridProductos.addView(textView);
-                        gridProductos.addView(imgBut,new GridLayout.LayoutParams(GridLayout.spec(fila), GridLayout.spec(2)));
+                            gridProductos.addView(textView);
+                            gridProductos.addView(imgBut,new GridLayout.LayoutParams(GridLayout.spec(fila), GridLayout.spec(2)));
 
-                        fila++;
+                            fila++;
 
-                    }while(c2.moveToNext());
+                        }while(c2.moveToNext());
                 }
             }while(c.moveToNext());
         }
@@ -126,10 +126,10 @@ public class CartaActivity extends AppCompatActivity implements View.OnClickList
                         idComanda= c.getInt(0);
                     }while(c.moveToNext());
                 }
-                db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto,comentario) VALUES ("+idComanda+","+arrayproduct[0]+",'')");
+                db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto) VALUES ("+idComanda+","+arrayproduct[0]+")");
                 Toast.makeText(getApplicationContext(), "Producto añadido" , Toast.LENGTH_SHORT).show();
             }else{
-                db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto,comentario) VALUES ("+idComanda+","+arrayproduct[0]+",'')");
+                db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto) VALUES ("+idComanda+","+arrayproduct[0]+")");
                 Toast.makeText(getApplicationContext(), "Producto añadido" , Toast.LENGTH_SHORT).show();
             }
             db.close();

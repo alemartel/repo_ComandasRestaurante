@@ -1,6 +1,7 @@
 package com.example.usuario.comandasrestaurante;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +15,7 @@ public class BaseDeDatos extends SQLiteOpenHelper{
 
     String sqlMesas = "CREATE TABLE Mesas (idMesa INTEGER PRIMARY KEY AUTOINCREMENT, nombreMesa TEXT)";
     String sqlComandas = "CREATE TABLE Comandas (idComanda INTEGER PRIMARY KEY AUTOINCREMENT,idMesa INTEGER NOT NULL, horaCierre FLOAT DEFAULT 0, precio FLOAT DEFAULT 0, FOREIGN KEY(IdMesa) REFERENCES Mesas(idMesa))";
-    String sqlLineaComand = "CREATE TABLE LineaComanda (idLinea INTEGER PRIMARY KEY AUTOINCREMENT, idComanda INTEGER NOT NULL, idProducto INTEGER NOT NULL, tipo INTEGER, cocineroFinalizacion FLOAT DEFAULT 0, comentario TEXT, FOREIGN KEY(idComanda) REFERENCES Comandas(idComanda))";
+    String sqlLineaComand = "CREATE TABLE LineaComanda (idLinea INTEGER PRIMARY KEY AUTOINCREMENT, idComanda INTEGER NOT NULL, idProducto INTEGER NOT NULL, tipo INTEGER, cocineroFinalizacion FLOAT DEFAULT 0, comentario TEXT DEFAULT NULL, FOREIGN KEY(idComanda) REFERENCES Comandas(idComanda))";
     String sqlCategorias = "CREATE TABLE Categorias (idCategoria INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT)";
     String sqlProductos = "CREATE TABLE Productos (idProducto INTEGER PRIMARY KEY AUTOINCREMENT, idCategoria INTEGER, nombre TEXT, tipo INTEGER, precio FLOAT, FOREIGN KEY(idCategoria) REFERENCES Categorias(idCategoria))";
     /*
@@ -26,6 +27,7 @@ public class BaseDeDatos extends SQLiteOpenHelper{
     public BaseDeDatos(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
