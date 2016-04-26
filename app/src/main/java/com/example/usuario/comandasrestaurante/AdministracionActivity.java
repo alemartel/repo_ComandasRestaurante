@@ -63,8 +63,8 @@ public class AdministracionActivity extends AppCompatActivity {
                                 startActivity(nextScreen);
                                 break;
                             case R.id.historial:
-//                                Intent verHisto = new Intent(getApplicationContext(), Historial.class);
-//                                startActivity(verHisto);
+                                Intent verHisto = new Intent(getApplicationContext(), Historial.class);
+                                startActivity(verHisto);
                                 break;
                             case R.id.logout:
                                 Intent logout = new Intent(getApplicationContext(), MainActivity.class);

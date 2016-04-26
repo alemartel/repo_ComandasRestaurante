@@ -22,6 +22,7 @@
         <activity android:name=".AdministracionActivity" />
         <activity android:name=".cambiar_adminpass" />
         <activity android:name=".CartaActivity"></activity>
+        <activity android:name=".Historial"></activity>
     </application>
 
 </manifest>

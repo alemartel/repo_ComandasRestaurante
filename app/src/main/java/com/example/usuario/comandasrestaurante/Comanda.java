@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
 import java.util.prefs.Preferences;
 
 public class Comanda extends AppCompatActivity {
@@ -165,8 +166,10 @@ public class Comanda extends AppCompatActivity {
         butPagarComanda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float time = System.currentTimeMillis();
-                db.execSQL("UPDATE Comandas SET horaCierre='" + time + "', precio='" + pagar + "' WHERE idMesa="+idMesa+" AND horaCierre=0");
+                //Long time = System.currentTimeMillis();
+                //Date fecha;
+                //db.execSQL("UPDATE Comandas SET horaCierre='" + time + "', precio='" + pagar + "' WHERE idMesa="+idMesa+" AND horaCierre=0");
+                db.execSQL("UPDATE Comandas SET horaCierre=strftime('%d-%m-%Y %H:%M:%S'), precio='" + pagar + "' WHERE idMesa="+idMesa+" AND horaCierre=0");
                 Toast.makeText(getApplicationContext(), "El cliente debe pagar: "+pagar+" euros", Toast.LENGTH_LONG).show();
                 onBackPressed();
             }
