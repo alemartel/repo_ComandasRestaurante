@@ -112,10 +112,17 @@ public class CartaActivity extends AppCompatActivity implements View.OnClickList
             final SQLiteDatabase db = database.getWritableDatabase();
             String[] ArrayIdmesa = mesa.split(" ");
             idMesa= ArrayIdmesa[1];
-            Cursor c= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre IS NULL AND IdMesa="+idMesa,null);
+            int tipo=0;
+            Cursor c= db.rawQuery("SELECT * FROM Productos WHERE idProducto="+arrayproduct[0],null);
             if(c.moveToFirst()){
                 do {
-                    idComanda= c.getInt(0);
+                    tipo = c.getInt(3);
+                }while(c.moveToNext());
+            }
+            c= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre IS NULL AND IdMesa="+idMesa,null);
+            if(c.moveToFirst()){
+                do {
+                    idComanda = c.getInt(0);
                 }while(c.moveToNext());
             }
             if(idComanda==0){
@@ -123,13 +130,13 @@ public class CartaActivity extends AppCompatActivity implements View.OnClickList
                 c= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre IS NULL AND IdMesa="+idMesa,null);
                 if(c.moveToFirst()){
                     do {
-                        idComanda= c.getInt(0);
+                        idComanda = c.getInt(0);
                     }while(c.moveToNext());
                 }
-                db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto) VALUES ("+idComanda+","+arrayproduct[0]+")");
+                db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto,tipo) VALUES ("+idComanda+","+arrayproduct[0]+","+tipo+")");
                 Toast.makeText(getApplicationContext(), "Producto añadido" , Toast.LENGTH_SHORT).show();
             }else{
-                db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto) VALUES ("+idComanda+","+arrayproduct[0]+")");
+                db.execSQL("INSERT INTO LineaComanda (IdComanda,IdProducto, tipo) VALUES ("+idComanda+","+arrayproduct[0]+","+tipo+")");
                 Toast.makeText(getApplicationContext(), "Producto añadido" , Toast.LENGTH_SHORT).show();
             }
             db.close();

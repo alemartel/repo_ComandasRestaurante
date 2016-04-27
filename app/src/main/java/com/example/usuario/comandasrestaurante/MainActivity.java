@@ -41,10 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-
+                        Intent nextScreen;
                         switch (item.getItemId()) {
                             case R.id.login:
-                                Intent nextScreen = new Intent(getApplicationContext(), LoginActivity.class);
+                                nextScreen = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(nextScreen);
+                                break;
+                            case R.id.PCocina:
+                                nextScreen = new Intent(getApplicationContext(), PCocinaActivity.class);
                                 startActivity(nextScreen);
                                 break;
                         }

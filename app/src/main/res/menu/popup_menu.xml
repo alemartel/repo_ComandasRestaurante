@@ -3,5 +3,8 @@
     <item
         android:id="@+id/login"
         android:title="Login"/>
+    <item
+        android:id="@+id/PCocina"
+        android:title="Panel del cocinero"/>
 
 </menu>
