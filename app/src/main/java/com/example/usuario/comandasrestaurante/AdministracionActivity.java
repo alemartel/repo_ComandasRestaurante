@@ -30,7 +30,7 @@ public class AdministracionActivity extends AppCompatActivity {
     ImageButton settings, botonMenos, botonMas, butAñadirCategoría, butEliminarCategoría, butAñadirProducto, butEliminarProducto;
     Button cambiaNumMesas;
     EditText nMesas, txtCategoría, txtProducto, txtPrecio;
-    Spinner spinnerCategoría, spinnerCategoría2, spinnerProducto;
+    Spinner spinnerCategoría, spinnerCategoría2, spinnerProducto, spinnerTipo;
 
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
@@ -148,6 +148,7 @@ public class AdministracionActivity extends AppCompatActivity {
         butEliminarProducto = (ImageButton) findViewById(R.id.butEliminarProducto);
         txtProducto = (EditText) findViewById(R.id.txtProducto);
         spinnerCategoría2 = (Spinner) findViewById(R.id.spinnerCategorías2);
+        spinnerTipo =(Spinner) findViewById(R.id.spinnerTipo);
         txtPrecio = (EditText) findViewById(R.id.txtPrecio);
         spinnerProducto = (Spinner) findViewById(R.id.spinnerProductos);
 
@@ -156,7 +157,11 @@ public class AdministracionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String textspinnerCategoría2 = spinnerCategoría2.getSelectedItem().toString();
                 String[] partstextspinnerCategoría2 = textspinnerCategoría2.split("-");
-                db.execSQL("INSERT INTO Productos (idCategoria, nombre, precio) " + "VALUES ("+partstextspinnerCategoría2[0]+",'"+txtProducto.getText()+"',"+txtPrecio.getText()+")");
+                int tipo;
+                if(spinnerTipo.getSelectedItem().toString().equals("SI")){
+                    tipo=1;
+                }else{ tipo=0;}
+                db.execSQL("INSERT INTO Productos (idCategoria, nombre, tipo, precio) " + "VALUES ("+partstextspinnerCategoría2[0]+",'"+txtProducto.getText()+"',"+tipo+","+txtPrecio.getText()+")");
                 getProductos();
                 Toast.makeText(getApplicationContext(), "Producto '"+txtProducto.getText()+"' añadido" , Toast.LENGTH_LONG).show();
                 txtProducto.setText("");
@@ -178,6 +183,7 @@ public class AdministracionActivity extends AppCompatActivity {
 
         getCategorias();
         getProductos();
+        getTipos();
     }
 
     private void getCategorias() {
@@ -225,5 +231,17 @@ public class AdministracionActivity extends AppCompatActivity {
         sItems.setAdapter(adapter);
     }
 
+    private void getTipos() {
+        List<String> tipos =  new ArrayList<String>();
+        // Adding data
+        tipos.add("¿Concinar?");
+        tipos.add("SI");
+        tipos.add("NO");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, tipos);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner sItems = (Spinner) findViewById(R.id.spinnerTipo);
+        sItems.setAdapter(adapter);
+    }
 
 }

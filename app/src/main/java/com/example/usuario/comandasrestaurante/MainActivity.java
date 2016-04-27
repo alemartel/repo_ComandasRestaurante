@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int nombre=c.getInt(0);
                 int idComanda=0;
                 ImageView imageView = new ImageView(this);
-                Cursor c2= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre=0 AND IdMesa="+nombre,null);
+                Cursor c2= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre IS NULL AND IdMesa="+nombre,null);
                 if(c2.moveToFirst()){
                     do {
                         idComanda= c2.getInt(0);

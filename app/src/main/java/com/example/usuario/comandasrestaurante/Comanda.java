@@ -65,7 +65,7 @@ public class Comanda extends AppCompatActivity {
         final SQLiteDatabase db = database.getWritableDatabase();
         String[] ArrayIdmesa = mesa.split(" ");
         idMesa= ArrayIdmesa[1];
-        Cursor c= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre=0 AND IdMesa="+idMesa,null);
+        Cursor c= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre IS NULL AND IdMesa="+idMesa,null);
         if(c.moveToFirst()){
             do {
                 idComanda= c.getInt(0);
@@ -150,10 +150,14 @@ public class Comanda extends AppCompatActivity {
                         });
 
                         final int eliminar = c.getInt(0);
+                        final Intent nextScreen = new Intent(this, Comanda.class);
                         deleteBut.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 db.execSQL("DELETE FROM LineaComanda WHERE idLinea='" + eliminar + "'");
+                                nextScreen.putExtra("Mesa", mesa);
+                                startActivity(nextScreen);
+                                finish();
                             }
                         });
 
@@ -169,7 +173,7 @@ public class Comanda extends AppCompatActivity {
                 //Long time = System.currentTimeMillis();
                 //Date fecha;
                 //db.execSQL("UPDATE Comandas SET horaCierre='" + time + "', precio='" + pagar + "' WHERE idMesa="+idMesa+" AND horaCierre=0");
-                db.execSQL("UPDATE Comandas SET horaCierre=strftime('%d-%m-%Y %H:%M:%S'), precio='" + pagar + "' WHERE idMesa="+idMesa+" AND horaCierre=0");
+                db.execSQL("UPDATE Comandas SET horaCierre=strftime('%d-%m-%Y %H:%M:%S'), precio='" + pagar + "' WHERE idMesa="+idMesa+" AND horaCierre IS NULL");
                 Toast.makeText(getApplicationContext(), "El cliente debe pagar: "+pagar+" euros", Toast.LENGTH_LONG).show();
                 onBackPressed();
             }

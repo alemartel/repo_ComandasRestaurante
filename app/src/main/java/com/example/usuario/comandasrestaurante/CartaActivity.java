@@ -112,7 +112,7 @@ public class CartaActivity extends AppCompatActivity implements View.OnClickList
             final SQLiteDatabase db = database.getWritableDatabase();
             String[] ArrayIdmesa = mesa.split(" ");
             idMesa= ArrayIdmesa[1];
-            Cursor c= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre=0 AND IdMesa="+idMesa,null);
+            Cursor c= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre IS NULL AND IdMesa="+idMesa,null);
             if(c.moveToFirst()){
                 do {
                     idComanda= c.getInt(0);
@@ -120,7 +120,7 @@ public class CartaActivity extends AppCompatActivity implements View.OnClickList
             }
             if(idComanda==0){
                 db.execSQL("INSERT INTO Comandas (IdMesa) VALUES ("+idMesa+")");
-                c= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre=0 AND IdMesa="+idMesa,null);
+                c= db.rawQuery("SELECT * FROM Comandas WHERE horaCierre IS NULL AND IdMesa="+idMesa,null);
                 if(c.moveToFirst()){
                     do {
                         idComanda= c.getInt(0);

@@ -191,7 +191,7 @@
                     android:id="@+id/butAñadirProducto"
                     android:src="@android:drawable/ic_input_add"
                     android:layout_gravity="right|center_vertical"
-                    android:layout_below="@+id/spinnerCategorías2"
+                    android:layout_below="@+id/spinnerTipo"
                     android:layout_alignParentEnd="true" />
 
                 <Spinner
@@ -203,13 +203,22 @@
                     android:layout_below="@+id/txtProducto"
                     android:spinnerMode="dialog" />
 
+                <Spinner
+                    android:layout_width="276dp"
+                    android:layout_height="54dp"
+                    android:id="@+id/spinnerTipo"
+                    android:layout_gravity="left|bottom"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/spinnerCategorías2"
+                    android:spinnerMode="dialog" />
+
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/txtPrecio"
                     android:inputType="number|numberDecimal"
                     android:hint="PVP €"
-                    android:layout_below="@+id/spinnerCategorías2"
+                    android:layout_below="@+id/spinnerTipo"
                     android:layout_alignParentStart="true" />
 
                 <Spinner
